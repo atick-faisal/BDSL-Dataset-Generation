@@ -23,7 +23,7 @@ const gestures = [
     { id: 3, value: "Thank You" },
 ];
 
-export default function RecordingSetup() {
+export default function RecordingSetup({ onStartRecord, onDiscardRecording }) {
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
@@ -61,6 +61,7 @@ export default function RecordingSetup() {
                 id="name"
                 label="Select the Gesture"
                 variant="outlined"
+                value={0}
                 onChange={(e) => {
                     console.log(e.target.value);
                 }}
@@ -82,11 +83,18 @@ export default function RecordingSetup() {
                 control={<Checkbox defaultChecked />}
                 label="I provide consent for the data collection"
             />
-            <Button size="large" variant="contained" color="error">
+            <Button
+                size="large"
+                variant="contained"
+                color="error"
+                onClick={() => {
+                    onStartRecord("Me", "Good");
+                }}
+            >
                 Start Recording
             </Button>
             <LinearProgress variant="determinate" value={progress} />
-            <DiscardRecording />
+            <DiscardRecording onDiscardRecording={onDiscardRecording} />
         </div>
     );
 }

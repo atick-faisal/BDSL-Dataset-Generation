@@ -1,6 +1,6 @@
 import { Button, Card, Paper, Typography } from "@mui/material";
 
-export default function DiscardRecording() {
+export default function DiscardRecording({ onDiscardRecording }) {
     return (
         <Paper
             style={{ backgroundColor: "#ffebee", borderColor: "#b71c1c" }}
@@ -14,7 +14,11 @@ export default function DiscardRecording() {
                 </b>
             </Typography>
             <br></br>
-            <Button variant="contained" color="error">
+            <Button
+                onClick={onDiscardRecording}
+                variant="contained"
+                color="error"
+            >
                 Discard Recording
             </Button>
         </Paper>
