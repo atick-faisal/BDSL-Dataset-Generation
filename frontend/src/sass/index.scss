@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+#root {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+}
+
+.App {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.Guide {
+    flex: 1;
+    background-color: aqua;
+}
+
+.RecordingSetup {
+    flex: 1;
+    background-color: antiquewhite;
+}
