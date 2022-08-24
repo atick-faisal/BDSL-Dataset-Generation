@@ -22,11 +22,24 @@ body {
 }
 
 .Guide {
-    flex: 1;
-    background-color: aqua;
+    flex: 2;
+    display: flex;
+    // background-color: aqua;
+    align-items: center;
+    justify-content: center;
 }
 
 .RecordingSetup {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    // background-color: antiquewhite;
+    gap: 1rem;
+    padding: 5rem;
+}
+
+.DiscardRecording {
+    padding: 2rem;
     background-color: antiquewhite;
+    border: 3px solid #e53935;
 }
