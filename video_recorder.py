@@ -1,41 +1,60 @@
+import os
 import time
 import cv2
 
-cap = cv2.VideoCapture(0)
-fps = cap.get(cv2.CAP_PROP_FPS)
-
 print("Initializing ... ", end="")
+file_path = None
 
+cap = cv2.VideoCapture(0)
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-
-writer = cv2.VideoWriter('dataset/basicvideo.mp4', cv2.VideoWriter_fourcc(
-    *'mp4v'), 30.0, (width, height))
-
-count = 0
-n_frames = 0
-total_frames = 5 * 30
-current_time = time.time()
+fps = cap.get(cv2.CAP_PROP_FPS)
 
 print("OK")
-
-while n_frames < total_frames:
-    ret, frame = cap.read()
-
-    writer.write(frame)
-    n_frames = n_frames + 1
-
-    if time.time() > current_time + 1.0:
-        current_time = time.time()
-        count = count + 1
-        print(count)
-
-    # cv2.imshow('frame', frame)
-
-    if cv2.waitKey(1) & 0xFF == 27:
-        break
+print(f"WIDTH: {width} HEIGHT: {height} FPS: {fps}")
 
 
-cap.release()
-writer.release()
-cv2.destroyAllWindows()
+DATA_DIR = os.path.join(os.getcwd(), "dataset")
+
+RECORDING_DURATION = 5
+TOTAL_FRAMES = int(RECORDING_DURATION * fps)
+
+
+def record_data(subject_id, gesture):
+    global file_path
+    save_location = os.path.join(DATA_DIR, subject_id, gesture)
+    if not os.path.exists(save_location):
+        os.makedirs(save_location)
+    filename = str(int(time.time())) + ".mp4"
+    file_path = os.path.join(save_location, filename)
+
+    writer = cv2.VideoWriter(
+        file_path, fourcc, fps, (width, height)
+    )
+
+    n_frames = 0
+    while n_frames < TOTAL_FRAMES:
+        ret, frame = cap.read()
+
+        if not ret:
+            continue
+
+        writer.write(frame)
+        n_frames = n_frames + 1
+
+    writer.release()
+
+
+def delete_last_recording():
+    global file_path
+    try:
+        os.remove(file_path)
+        print(f"Removed {file_path}")
+    except:
+        print("Couldn't remove file!")
+
+
+def cleanup():
+    cap.release()
+    cv2.destroyAllWindows()
