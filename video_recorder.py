@@ -17,7 +17,7 @@ print(f"WIDTH: {width} HEIGHT: {height} FPS: {fps}")
 
 DATA_DIR = os.path.join(os.getcwd(), "dataset")
 
-RECORDING_DURATION = 5
+RECORDING_DURATION = 4
 TOTAL_FRAMES = int(RECORDING_DURATION * fps)
 
 
@@ -40,10 +40,13 @@ def record_data(subject_id, gesture):
         if not ret:
             continue
 
+        # cv2.imshow("WebCam", frame)
+
         writer.write(frame)
         n_frames = n_frames + 1
 
     writer.release()
+    # cv2.destroyAllWindows()
 
 
 def delete_last_recording():
