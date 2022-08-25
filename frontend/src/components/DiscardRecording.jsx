@@ -1,4 +1,4 @@
-import { Button, Card, Paper, Typography } from "@mui/material";
+import { Button, Paper, Typography } from "@mui/material";
 
 export default function DiscardRecording({ onDiscardRecording }) {
     return (
