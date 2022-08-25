@@ -6,7 +6,7 @@ print("Initializing ... ", end="")
 file_path = None
 
 cap = cv2.VideoCapture(0)
-fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 fps = cap.get(cv2.CAP_PROP_FPS)
@@ -26,7 +26,7 @@ def record_data(subject_id, gesture):
     save_location = os.path.join(DATA_DIR, subject_id, gesture)
     if not os.path.exists(save_location):
         os.makedirs(save_location)
-    filename = str(int(time.time())) + ".mp4"
+    filename = str(int(time.time())) + ".avi"
     file_path = os.path.join(save_location, filename)
 
     writer = cv2.VideoWriter(
