@@ -24,6 +24,7 @@ body {
 .Guide {
     flex: 2;
     display: flex;
+    flex-direction: column;
     // background-color: aqua;
     align-items: center;
     justify-content: center;
