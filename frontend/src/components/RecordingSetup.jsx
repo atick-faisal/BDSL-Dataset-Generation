@@ -1,100 +1,94 @@
 import {
     Typography,
-    TextField,
-    InputAdornment,
-    Select,
-    MenuItem,
     FormControlLabel,
     Checkbox,
-    InputLabel,
     Button,
     LinearProgress,
 } from "@mui/material";
 
-import { Person, Swipe } from "@mui/icons-material";
 import DiscardRecording from "./DiscardRecording";
-import { useEffect } from "react";
 import { useState } from "react";
+import Name from "./Name";
+import GestureSelector from "./GestureSelector";
 
-const gestures = [
-    { id: 0, value: "Good" },
-    { id: 1, value: "Bad" },
-    { id: 2, value: "Hello" },
-    { id: 3, value: "Thank You" },
-];
-
-export default function RecordingSetup({ onStartRecord, onDiscardRecording }) {
+export default function RecordingSetup({
+    gestureList,
+    currentGesture,
+    setCurrentGesture,
+    onStartRecord,
+    onDiscardRecording,
+}) {
+    const [subjectId, setSubjectId] = useState("");
+    const [showDiscard, setShowDiscard] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [concentProvided, setConcentProvided] = useState(false);
 
-    useEffect(() => {
+    const [recordBtnColor, setRecordBtnColor] = useState("error");
+    const [recordBtnText, setRecordBtnText] = useState("Start Recording");
+
+    const showRecordingPreogress = () => {
+        setProgress(0);
+        setRecordBtnColor("success");
+        setRecordBtnText("Please Prepare ... ");
         const interval = setInterval(() => {
             setProgress((p) => p + 1);
-        }, 100);
+        }, 70);
+
+        setTimeout(() => {
+            setRecordBtnColor("warning");
+            setRecordBtnText("Recording ... ");
+            onStartRecord(subjectId, currentGesture.value);
+        }, 3000);
 
         setTimeout(() => {
             clearInterval(interval);
-        }, 5000);
-    }, []);
+            setShowDiscard(true);
+            setRecordBtnColor("error");
+            setRecordBtnText("Start Recording");
+        }, 7000);
+    };
+
+    // console.log(currentGesture);
 
     return (
         <div className="RecordingSetup">
-            <Typography variant="h4">Recording Setup</Typography>
-            <TextField
-                required
-                id="name"
-                label="Your Name"
-                variant="outlined"
-                onChange={(e) => {
-                    console.log(e.target.value);
-                }}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <Person />
-                        </InputAdornment>
-                    ),
-                }}
+            <Typography variant="h5">Recording Setup</Typography>
+            <Name subjectId={subjectId} setSubjectId={setSubjectId} />
+            <GestureSelector
+                gestureList={gestureList}
+                currentGesture={currentGesture}
+                setCurrentGesture={setCurrentGesture}
             />
-            <TextField
-                select
-                required
-                id="name"
-                label="Select the Gesture"
-                variant="outlined"
-                value={0}
-                onChange={(e) => {
-                    console.log(e.target.value);
-                }}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <Swipe />
-                        </InputAdornment>
-                    ),
-                }}
-            >
-                {gestures.map((gesture) => (
-                    <MenuItem key={gesture.id} value={gesture.id}>
-                        {gesture.value}
-                    </MenuItem>
-                ))}
-            </TextField>
+
             <FormControlLabel
-                control={<Checkbox defaultChecked />}
+                control={<Checkbox />}
+                checked={concentProvided}
+                onChange={(e) => {
+                    console.log(concentProvided);
+                    setConcentProvided(e.target.checked);
+                }}
                 label="I provide consent for the data collection"
             />
             <Button
                 size="large"
                 variant="contained"
-                color="error"
+                color={recordBtnColor}
+                disabled={subjectId === "" || !concentProvided}
                 onClick={() => {
-                    onStartRecord("Me", "Good");
+                    showRecordingPreogress();
+                    setShowDiscard(false);
                 }}
             >
-                Start Recording
+                {recordBtnText}
             </Button>
-            <LinearProgress variant="determinate" value={progress} />
-            <DiscardRecording onDiscardRecording={onDiscardRecording} />
+            <LinearProgress
+                color={recordBtnColor}
+                variant="determinate"
+                value={progress}
+            />
+            {showDiscard && (
+                <DiscardRecording onDiscardRecording={onDiscardRecording} />
+            )}
         </div>
     );
 }
