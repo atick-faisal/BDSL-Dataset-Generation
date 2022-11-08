@@ -1,4 +1,4 @@
-import os
+import os, webbrowser
 from flask import Flask, request, jsonify, send_from_directory
 
 from video_recorder import (
@@ -56,5 +56,6 @@ def delete():
 
 
 if __name__ == "__main__":
+    webbrowser.open("http://localhost:5000")
     app.run(host='0.0.0.0', port=5000)
     cleanup()
