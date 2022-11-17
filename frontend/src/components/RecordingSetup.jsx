@@ -38,14 +38,14 @@ export default function RecordingSetup({
             setRecordBtnColor("warning");
             setRecordBtnText("Recording ... ");
             onStartRecord(subjectId, currentGesture.value);
-        }, 3000);
+        }, 2000);
 
         setTimeout(() => {
             clearInterval(interval);
             setShowDiscard(true);
             setRecordBtnColor("error");
             setRecordBtnText("Start Recording");
-        }, 7000);
+        }, 4000);
     };
 
     // console.log(currentGesture);

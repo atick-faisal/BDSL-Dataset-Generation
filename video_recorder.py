@@ -17,7 +17,7 @@ print(f"WIDTH: {width} HEIGHT: {height} FPS: {fps}")
 
 DATA_DIR = os.path.join(os.getcwd(), "dataset")
 
-RECORDING_DURATION = 4
+RECORDING_DURATION = 2
 TOTAL_FRAMES = int(RECORDING_DURATION * fps)
 
 
