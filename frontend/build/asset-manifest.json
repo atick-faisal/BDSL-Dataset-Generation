@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.2327f26a.css",
-    "main.js": "/static/js/main.ca6f01e8.js",
+    "main.js": "/static/js/main.1c4c86a9.js",
     "static/media/হ্যালো.gif": "/static/media/হ্যালো.26b8ec193cb43be357ff.gif",
     "static/media/কলেজ.gif": "/static/media/কলেজ.d5f9838f24d94b65a665.gif",
     "static/media/ইন্টারনেট.gif": "/static/media/ইন্টারনেট.935e38075a3f2678bcd4.gif",
@@ -44,10 +44,10 @@
     "static/media/আমি দুঃখিত.gif": "/static/media/আমি দুঃখিত.d56e92460bb51d77f3b1.gif",
     "index.html": "/index.html",
     "main.2327f26a.css.map": "/static/css/main.2327f26a.css.map",
-    "main.ca6f01e8.js.map": "/static/js/main.ca6f01e8.js.map"
+    "main.1c4c86a9.js.map": "/static/js/main.1c4c86a9.js.map"
   },
   "entrypoints": [
     "static/css/main.2327f26a.css",
-    "static/js/main.ca6f01e8.js"
+    "static/js/main.1c4c86a9.js"
   ]
 }
